@@ -1,0 +1,19 @@
+:host ::v-deep {
+    .p-datatable {
+        border: 1px solid var(--p-datatable-border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .p-datatable-thead > tr > th {
+        background: var(--p-content-background);
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+
+    /* Custom Zebra striping reinforcement */
+    .p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+        background: var(--p-datatable-row-even-background);
+    }
+}

@@ -1,0 +1,82 @@
+/* src/app/app.component.scss */
+:host {
+  --sidebar-width: 320px;
+}
+
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Style for the p-drawer container */
+::v-deep .fixed-sidebar {
+  width: var(--sidebar-width) !important;
+  border-right: 1px solid var(--p-content-border-color);
+  background: var(--p-content-background);
+}
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width); /* Push content to the right of fixed drawer */
+  padding: 2rem;
+  min-height: 100vh;
+  transition: margin-left 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+  &.menu-collapsed {
+    margin-left: 0; /* When menu is collapsed, remove left margin */
+    // .content-header {
+    //   padding-left: 0;
+    // }
+  }
+  
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  h1 { margin: 0; font-size: 1.75rem; font-weight: 700; }
+}
+
+/* Custom Mode Button styling */
+.mode-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--p-text-color);
+  transition: all 0.2s;
+  font-size: 1rem;
+  font-size: 0.875rem; /* Slightly smaller text for long lists */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:hover {
+    background: var(--p-content-hover-background);
+  }
+
+  &.active {
+    background: var(--p-primary-color);
+    color: var(--p-primary-contrast-color);
+  }
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: var(--p-text-muted-color);
+  gap: 1rem;
+}

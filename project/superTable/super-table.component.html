@@ -1,0 +1,53 @@
+<p-table 
+    [value]="data" 
+    [columns]="config.columns"
+    [paginator]="config.paginator" 
+    [rows]="config.rows || 10"
+    [rowsPerPageOptions]="config.rowsPerPageOptions || [5, 10, 20]"
+    [selectionMode]="config.selectionMode"
+    [dataKey]="config.dataKey || 'id'"
+    [resizableColumns]="config.resizableColumns"
+    [reorderableColumns]="config.reorderableColumns"
+    [showGridlines]="config.showGridlines"
+    [stripedRows]="config.stripedRows"
+    [tableStyleClass]="config.size === 'small' ? 'p-datatable-sm' : config.size === 'large' ? 'p-datatable-lg' : ''"
+    (onRowSelect)="onRowSelect.emit($event)"
+    (onPage)="onPage.emit($event)"
+    (onSort)="onSort.emit($event)">
+    
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngIf="config.rowExpansion" style="width: 5rem" scope="col"></th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" scope="col">
+                {{ col.header }}
+                <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded">
+        <tr [pSelectableRow]="rowData">
+            <td *ngIf="config.rowExpansion">
+                <button type="button" pButton [pRowToggler]="rowData" 
+                        class="p-button-text p-button-rounded p-button-plain" 
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td *ngFor="let col of columns">
+                <ng-container *ngIf="!bodyTemplate; else customBody">
+                    {{ rowData[col.field] }}
+                </ng-container>
+                <ng-template #customBody>
+                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, column: col}"></ng-container>
+                </ng-template>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-rowData *ngIf="config.rowExpansion">
+        <tr>
+            <td [attr.colspan]="config.columns.length + 1">
+                <ng-container *ngTemplateOutlet="expansionTemplate; context: {$implicit: rowData}"></ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
