@@ -1,4 +1,3 @@
-/* src/app/app.component.scss */
 :host {
   --sidebar-width: 320px;
 }
@@ -24,9 +23,6 @@
 
   &.menu-collapsed {
     margin-left: 0; /* When menu is collapsed, remove left margin */
-    // .content-header {
-    //   padding-left: 0;
-    // }
   }
   
 }
